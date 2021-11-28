@@ -31,7 +31,14 @@
 
 		// initRound()
 	}
-	
+
+	const pause = () => {
+		setTimeout(()=> {
+			initRound()
+		}, 2000)
+
+	}
+
 	let handleClick = () => {
 		clearTimeout(endRoundTimeout);
 		endRoundTimeout = null;
@@ -40,7 +47,7 @@
 		
 		endRoundTimeout = setTimeout(() => {
 			endRound();
-		}, 5000);
+		}, 2000);
 	}
 
 </script>
@@ -53,7 +60,7 @@
   </div>
   <div>
     <div class="tapped">
-      <button class:correct class:wrong on:animationend={initRound} on:click={handleClick}
+      <button class:correct class:wrong on:animationend={pause} on:click={handleClick}
         >{timesTapped}</button
       >
     </div>
@@ -80,26 +87,22 @@
 
   button.wrong {
     background-color: rgb(206, 102, 102);
-    animation: blink-animation 4s;
+    animation: blink-animation 1s;
+	color: white
   }
 
   button.correct {
     background-color: rgb(153, 218, 57);
-    animation: blink-animation 4s;
+    animation: blink-animation 1s;
   }
 
   @keyframes blink-animation {
-    0% {
-		/* background-color: unset; */
-    }
-	20% {
-		background-color: unset;
-	}
-    30% {
+    from {
 		background-color: inherit;
-    }
-	60% {
-		/* background-color: white; */
+		color: black
+	}
+	to {
+		
 	}
   }
 
