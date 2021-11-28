@@ -39,15 +39,17 @@
 
 	}
 
-	let handleClick = () => {
-		clearTimeout(endRoundTimeout);
+	let add = (addition) => {
+		return () => {
+			clearTimeout(endRoundTimeout);
 		endRoundTimeout = null;
 
-		timesTapped++
+		timesTapped+=addition
 		
 		endRoundTimeout = setTimeout(() => {
 			endRound();
 		}, 2000);
+		}
 	}
 
 </script>
@@ -60,8 +62,12 @@
   </div>
   <div>
     <div class="tapped">
-      <button class:correct class:wrong on:animationend={pause} on:click={handleClick}
-        >{timesTapped}</button
+      <button class:correct class:wrong on:animationend={pause} on:click={add(-1)}
+        >-</button
+      >
+	  {timesTapped}
+      <button class:correct class:wrong on:animationend={pause} on:click={add(1)}
+        >+</button
       >
     </div>
 </div>
@@ -81,8 +87,14 @@
   .tapped {
     /* color: #ff3e00; */
     text-transform: uppercase;
-    font-size: 4em;
+    font-size: 12em;
     font-weight: 100;
+  }
+
+  .tapped {
+	  display: flex;
+	  align-items: center;
+	  justify-content: space-around;
   }
 
   button {
