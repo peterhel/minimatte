@@ -6,8 +6,10 @@
 
 	export let correct = false;
 	export let wrong = false;
-
+	export let animateProgress = false;
 	export let timesTapped = 0;
+
+	export let statistics = []
 
 	let endRoundTimeout = null;
 
@@ -29,6 +31,17 @@
 		correct = timesTapped === correctSum
 		wrong = !correct;
 
+		statistics.push({
+			tal1,
+			tal2,
+			correct
+		})
+
+		// initRound()
+	}
+
+	const onEndAnimateProgress = () => {
+		animateProgress = false
 		// initRound()
 	}
 
@@ -41,14 +54,17 @@
 
 	let add = (addition) => {
 		return () => {
+			animateProgress = false
 			clearTimeout(endRoundTimeout);
-		endRoundTimeout = null;
+			endRoundTimeout = null;
+			timesTapped += addition
 
-		timesTapped+=addition
-		
-		endRoundTimeout = setTimeout(() => {
-			endRound();
-		}, 2000);
+			window.requestAnimationFrame(() => {
+				animateProgress = true
+				endRoundTimeout = setTimeout(() => {
+				endRound();
+			}, 2000);
+			})
 		}
 	}
 
@@ -60,12 +76,17 @@
     <div class="tal">+</div>
     <div class="tal">{tal2}</div>
   </div>
+  <div class="progress" class:idle={timesTapped === 0}>
+	{#if animateProgress}
+	<div class="animate_progress" on:animationend={onEndAnimateProgress} />
+	{/if}
+  </div>
   <div>
     <div class="tapped">
       <button class:correct class:wrong on:animationend={pause} on:click={add(-1)}
         >-</button
       >
-	  <div class="tapped-value">{timesTapped}</div>
+	  <div class="tapped-value">{timesTapped === 0 ? '?' : timesTapped}</div>
       <button class:correct class:wrong on:animationend={pause} on:click={add(1)}
         >+</button
       >
@@ -98,7 +119,22 @@
   }
 
   .tapped-value {
-	  margin: 0 .1em;
+	  /* margin: 0 .1em; */
+  }
+
+  .progress {
+	  border: 2px solid;
+	  height: 2em;
+	  border-radius: 8px;
+	  margin: 0 18px
+  }
+
+  .filler {
+	  width: 0%
+  }
+
+  .idle {
+	background-color:lightgoldenrodyellow;
   }
 
   button {
@@ -107,9 +143,26 @@
 	  border-radius: 8px;
 	  border: 2px solid;
 	  padding: 0;
-	  margin: 0;
+	  margin: 0 18px;
 	  width: 100%;
 	  font-size: .6em;
+	  touch-action: manipulation;
+  }
+
+  .animate_progress {
+	animation: animate_progress 2s linear;
+	background-color: greenyellow;
+	height: 100%
+	
+  }
+
+  @keyframes animate_progress {
+	from {
+		width: 0%;
+	}
+	to {
+		width: 100%;
+	}
   }
 
   button.wrong {
