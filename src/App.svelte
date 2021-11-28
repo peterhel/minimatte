@@ -15,8 +15,8 @@
 		correct = false;
 		wrong = false;
 
-		tal1 = Math.ceil(Math.random() * 8);
-		tal2 = Math.ceil(Math.random() * 7);
+		tal1 = Math.floor(Math.random() * 9) + 1;
+		tal2 = Math.floor(Math.random() * 9) + 1;
 
 		correctSum = tal1+tal2;
 		timesTapped= 0
@@ -57,15 +57,17 @@
         >{timesTapped}</button
       >
     </div>
-  </div>
+</div>
 </main>
 
 <style>
   main {
     text-align: center;
-    padding: 1em;
-    max-width: 240px;
-    margin: 0 auto;
+    width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
   }
 
   .tal,
@@ -74,6 +76,12 @@
     text-transform: uppercase;
     font-size: 4em;
     font-weight: 100;
+  }
+
+  .page {
+	  display: flex;
+		flex-direction: column;
+		justify-items: space-around;
   }
 
   button.wrong {
