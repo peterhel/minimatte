@@ -65,7 +65,7 @@
       <button class:correct class:wrong on:animationend={pause} on:click={add(-1)}
         >-</button
       >
-	  {timesTapped}
+	  <div class="tapped-value">{timesTapped}</div>
       <button class:correct class:wrong on:animationend={pause} on:click={add(1)}
         >+</button
       >
@@ -87,14 +87,18 @@
   .tapped {
     /* color: #ff3e00; */
     text-transform: uppercase;
-    font-size: 12em;
+    font-size: 10em;
     font-weight: 100;
   }
 
   .tapped {
 	  display: flex;
 	  align-items: center;
-	  justify-content: space-around;
+	  justify-content: space-evenly;
+  }
+
+  .tapped-value {
+	  margin: 0 .1em;
   }
 
   button {
@@ -102,6 +106,10 @@
 	  background-color: white;
 	  border-radius: 8px;
 	  border: 2px solid;
+	  padding: 0;
+	  margin: 0;
+	  width: 100%;
+	  font-size: .6em;
   }
 
   button.wrong {
