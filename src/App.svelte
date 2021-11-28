@@ -79,10 +79,17 @@
 
   .tal,
   .tapped {
-    color: #ff3e00;
+    /* color: #ff3e00; */
     text-transform: uppercase;
     font-size: 4em;
     font-weight: 100;
+  }
+
+  button {
+	  animation: pulsate 1s infinite;
+	  background-color: white;
+	  border-radius: 8px;
+	  border: 2px solid;
   }
 
   button.wrong {
@@ -94,6 +101,12 @@
   button.correct {
     background-color: rgb(153, 218, 57);
     animation: blink-animation 1s;
+  }
+
+  @keyframes pulsate {
+	  50% {
+		  background-color:lightgoldenrodyellow;
+	  }
   }
 
   @keyframes blink-animation {
