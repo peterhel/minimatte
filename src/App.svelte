@@ -78,12 +78,6 @@
     font-weight: 100;
   }
 
-  .page {
-	  display: flex;
-		flex-direction: column;
-		justify-items: space-around;
-  }
-
   button.wrong {
     background-color: rgb(206, 102, 102);
     animation: blink-animation 4s;
